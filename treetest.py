@@ -36,7 +36,7 @@ y_test = test_df[y]
 #creatting tree with a certain max depth(layers)
 #class_dt = tree.DecisionTreeClassifier(max_depth=250)
 
-gbr = GradientBoostingClassifier(verbose=1)
+gbr = GradientBoostingClassifier(verbose=1, n_estimators=2)
 # We use our previous `X_train` and `y_train` sets to build the model
 gbr.fit(X_train, y_train)
 
