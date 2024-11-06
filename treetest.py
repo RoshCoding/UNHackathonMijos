@@ -36,12 +36,10 @@ y_test = test_df[y]
 #creatting tree with a certain max depth(layers)
 #class_dt = tree.DecisionTreeClassifier(max_depth=250)
 
-gbr = GradientBoostingClassifier()
+gbr = GradientBoostingClassifier(verbose=1)
 # We use our previous `X_train` and `y_train` sets to build the model
 gbr.fit(X_train, y_train)
 
-cross_val_score(gbr, X_train, y_train, cv=3, n_job = -1, validation_fraction=0.1, n_iter_no_change=5, verbose=1).mean()
+print(cross_val_score(gbr, X_train, y_train, cv=3).mean())
 
 # y_pred = gbr.predict(X_test)
-
-# print("Accuracy: ", metrics.accuracy_score(y_test, y_pred) * 100)
