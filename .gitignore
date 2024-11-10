@@ -1,3 +1,6 @@
 *.pkl
 *keras
 dataset.csv
+datasetV2.csv
+datasetV2Formatted.csv
+                                                        

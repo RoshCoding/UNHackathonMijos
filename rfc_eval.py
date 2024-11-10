@@ -25,8 +25,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 data_path = 'dataset.csv'
 
-model = load_model("seqNet_model.keras")
-label_encoder = LabelEncoder()
+model = joblib.load("rfc_modelV3.pkl")
 # Use the 'pd.read_csv(filepath)' function to read in read our data and store it
 # in a variable called 'dataframe'
 dataframe = pd.read_csv(data_path)
@@ -42,19 +41,24 @@ y = 'diseases'
 # X_test = dataframe[X]
 y_test = dataframe[y]
 # y_pred = model.predict(np.array([X]))
-input_symptoms = ["headache", "sore throat", "fever"]
-
+input_symptoms = ["headache", "sore throat", "fever", "runny nose", "cough"]
 # Create a binary array of the same length as X
 input_binary = [1 if symptom in input_symptoms else 0 for symptom in X]
 
 input = np.array(input_binary)
-input = np.reshape(input, (1, -1))
+input = input.reshape(1, -1)
 
-predictions = model.predict(input)
-
-# Sort predictions to get the top 3
-top_3_indices = np.argsort(predictions[0])[-3:][::-1]
-top_3_values = predictions[0][top_3_indices]
+y_pred_proba = model.predict_proba(input)
 # Combine the probabilities with the class labels for easier interpretation
-for i, (index, prob) in enumerate(zip(top_3_indices, top_3_values)):
-    print(f"Prediction {i+1}: Class {y_test[index]} with probability {prob:.2f}")
+top_n = 3  # number of top results to display
+for i, probs in enumerate(y_pred_proba):
+    # Get the top n probabilities and their corresponding classes
+    top_indices = np.argsort(probs)[::-1][:top_n]
+    top_classes = [model.classes_[idx] for idx in top_indices]
+    top_probs = [probs[idx] for idx in top_indices]
+    
+    print(f"Sample {i + 1}:")
+    for j in range(top_n):
+        print(f"  {top_classes[j]}: {top_probs[j]:.4f}")
+    print("-" * 40)
+# Sort predictions to get the top 3
