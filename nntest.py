@@ -43,7 +43,7 @@ y_train = train_df[y]
 
 X_test = test_df[X]
 y_test = test_df[y]
-
+print(X_train.columns)
 # Create and train our multi layer perceptron model two rows of 10 neurons for now
 nnet = MLPClassifier(hidden_layer_sizes=(10, 10), random_state=1, max_iter= 10000)
 nnet.fit(X_train, y_train)
