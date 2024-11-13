@@ -8,10 +8,25 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.metrics import top_k_categorical_accuracy
 
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
+# Configure GPUs if available
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    try:
+        # Restrict TensorFlow to only use the first GPU
+        tf.config.set_visible_devices(gpus[0], 'GPU')
+        # Optional: Set memory growth to prevent memory allocation errors
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
+
+print("Loading dataset")
 # Load your dataset
-data = pd.read_csv("your_dataset.csv")  # Replace with your dataset file path
-symptoms = data["symptoms"].values
-diseases = data["diseases"].apply(lambda x: x.split(',')).values  # Assumes diseases are comma-separated
+data = pd.read_csv("new_data.csv")  # Replace with your dataset file path
+symptoms = data["text"].values
+diseases = data["lebel_text"] # Assumes diseases are comma-separated
 
 # Encode the labels as a binary matrix
 mlb = MultiLabelBinarizer()
