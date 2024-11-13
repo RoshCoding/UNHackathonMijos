@@ -42,7 +42,7 @@ dataframe = dataframe.groupby(y).filter(lambda x: len(x) >= min_samples)
 # #Prepare X_test and y_test by extracting the columns from the dataframe
 # X_test = dataframe[X]
 # y_pred = model.predict(np.array([X]))
-input_symptoms = ["headache", "sore throat", "fever", "runny nose"]
+input_symptoms = ["cough", "shortness of breath", "runny nose"]
 
 # Create a binary array of the same length as X
 input_binary = [1 if symptom in input_symptoms else 0 for symptom in X]
@@ -57,5 +57,4 @@ top_3_indices = np.argsort(predictions[0])[-3:][::-1]
 top_3_values = predictions[0][top_3_indices]
 # Combine the probabilities with the class labels for easier interpretation
 for i, (index, prob) in enumerate(zip(top_3_indices, top_3_values)):
-    print(index, dataframe[y][index], prob)
     print(f"Prediction {i+1}: Class {dataframe[y][index]} with probability {prob:.2f}")

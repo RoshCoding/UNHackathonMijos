@@ -7,12 +7,13 @@ from sklearn.metrics import accuracy_score, classification_report
 import joblib
 
 # Load the dataset
-file_path = 'text_dataset.csv'  # Replace with your file path
+file_path = 'datasetV2.csv'  # Replace with your file path
 data = pd.read_csv(file_path)
 
 # Split the dataset into features and labels
-X = data['text']
-y = data['lebel_text']  # Make sure this column name matches your dataset
+
+X = data['symptoms'].str.replace('_', ' ').fillna('')
+y = data['disease'].str.lower().str.replace('"', '').str.replace("'", '')  # Make sure this column name matches your dataset
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -33,7 +34,6 @@ y_pred = model_nb.predict(X_test_tfidf)
 accuracy = accuracy_score(y_test, y_pred)
 report = classification_report(y_test, y_pred)
 print("Accuracy:", accuracy)
-print("Classification Report:\n", report)
 
 # Save the trained model and vectorizer
 joblib.dump(model_nb, 'naive_bayes_model.pkl')

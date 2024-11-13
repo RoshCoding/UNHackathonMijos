@@ -6,14 +6,14 @@ model = joblib.load('naive_bayes_model.pkl')
 tfidf = joblib.load('tfidf_vectorizer.pkl')
 
 # Transform new text data and make predictions
-new_text = ["I have a sore throat, I am coughing, and I have a fever"]
+new_text = ["stuffy nose, runny nose, fever, headache"]
 new_text_tfidf = tfidf.transform(new_text)
 
 # Get probabilities for each class
 probabilities = model.predict_proba(new_text_tfidf)
 
 # Get the indices of the top 3 highest probabilities
-top3_indices = np.argsort(probabilities[0])[-3:][::-1]
+top3_indices = np.argsort(probabilities[0])[-5:][::-1]
 
 # Get the class names (diagnoses) for the top 3 indices
 top3_diagnoses = [model.classes_[index] for index in top3_indices]
