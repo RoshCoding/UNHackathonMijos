@@ -6,7 +6,7 @@ model = joblib.load('naive_bayes_model.pkl')
 tfidf = joblib.load('tfidf_vectorizer.pkl')
 
 # Transform new text data and make predictions
-new_text = ["stuffy nose, runny nose, fever, headache"]
+new_text = ["Im having stomach pain. I have a high temperature"]
 new_text_tfidf = tfidf.transform(new_text)
 
 # Get probabilities for each class

@@ -42,7 +42,7 @@ dataframe = dataframe.groupby(y).filter(lambda x: len(x) >= min_samples)
 # #Prepare X_test and y_test by extracting the columns from the dataframe
 # X_test = dataframe[X]
 # y_pred = model.predict(np.array([X]))
-input_symptoms = ["cough", "shortness of breath", "runny nose"]
+input_symptoms = ["stomach pain", "fever"]
 
 # Create a binary array of the same length as X
 input_binary = [1 if symptom in input_symptoms else 0 for symptom in X]
