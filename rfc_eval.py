@@ -41,7 +41,7 @@ y = 'diseases'
 # X_test = dataframe[X]
 y_test = dataframe[y]
 # y_pred = model.predict(np.array([X]))
-input_symptoms = ["headache", "sore throat", "fever", "runny nose", "cough"]
+input_symptoms = ["runny nose", "sore throat", "fever"]
 # Create a binary array of the same length as X
 input_binary = [1 if symptom in input_symptoms else 0 for symptom in X]
 
