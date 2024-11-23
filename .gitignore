@@ -1,4 +1,5 @@
-*.pkl
+naive_bayes_model.pkl
+tfidf_vectorizer.pkl
 *keras
 dataset.csv
 datasetV2.csv
